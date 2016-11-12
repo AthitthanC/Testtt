@@ -1,9 +1,17 @@
 package com.example.athitthan.helloword;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,11 +19,13 @@ import android.widget.ImageView;
 public class SignUpActivity extends AppCompatActivity {
 
     //Explilcit
-    private EditText namEditText, phoneEditText,
-            userEditText, passwordEditText;
+    private EditText namEditText ,phoneEditText, userEditText,passwordEditText;
     private ImageView imageView;
     private Button button;
-    private String nameString, phoneString, userString, passwordString;
+    private String nameString, phoneString,userString,passwordString,
+    imagePathSring,imagagNameString;
+
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +58,76 @@ public class SignUpActivity extends AppCompatActivity {
                     MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.build10,
                             "มีช่องว่าง", "กรุณากรอกให้ครบทุกช่องค่ะ");
                     myAlert.myDialog();
-
                 }
-            } //onClick
+            }
+
+            //Image Controller
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "เลือกแอพดูภาพ"), 0);
+
+            }//onClick
         });
 
 
     } // Main Method
 
+    @Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == 0) && (resultCode == RESULT_OK)) {
+
+            Log.d("12novV1", "Resault OK");
+
+            //Show Image
+            uri = data.getData();
+            try {
+
+                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                        .openInputStream(uri));
+                imageView.setImageBitmap(bitmap);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //Find Path of Image
+            imagePathSring = myFinfPath(uri);
+            Log.d("12novV1", "imagePath ==>" + imagePathSring);
+
+            //Find Name
+            imagePathSring = imagePathSring.substring(imagePathSring.lastIndexOf("/"));
+            Log.d("12novV1", "imageName ==>" + imagagNameString);
+
+
+        }//if
+
+    }// onActivity
+
+    private String myFinfPath(Uri uri) {
+
+        String result = null;
+        String[] strings = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, strings, null, null, null);
+
+        if (cursor != null) {
+
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            result = cursor.getString(index);
+
+        } else  {
+            result = uri.getPath();
+        }
+        return result;
+
+    }
 } //Main Class
