@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Test_app</string>
     <string name="signUp">สมัครสมาชิก</string>
+
+    <string name="title_HaveSpace">มีช่องว่าง</string>
+    <string name="message_HaveSpace">กรุณากรอกทุกช่อง</string>
+    <string name="title_UserFalse">User ผิด</string>
+    <string name="message_UserFalse">ไม่มี User ในฐานข้อมูล</string>
+    <string name="title_PasswordFalse">Password ผิด</string>
+    <string name="message_PasswordFalse">พิมพ์ Password ใหม่</string>
+    <string name="message_PassordFalse">Password ผิด</string>
 </resources>

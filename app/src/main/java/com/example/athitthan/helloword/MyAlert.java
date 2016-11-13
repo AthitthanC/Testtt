@@ -24,6 +24,8 @@ public class MyAlert {
         this.messageString = messageString;
     }
 
+
+
     public void myDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);

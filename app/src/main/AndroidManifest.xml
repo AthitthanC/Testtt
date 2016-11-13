@@ -2,22 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.athitthan.helloword">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo_kku"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"> //ทำให้ตั้ง
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            //ทำให้ตั้ง
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" android:screenOrientation="portrait"></activity> //ทำให้ไม่หมุน
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        //ทำให้ไม่หมุน
+        <activity android:name=".ServiceActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
